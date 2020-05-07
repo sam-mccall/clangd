@@ -73,7 +73,7 @@ jobs:
             "-DLLVM_ENABLE_ZLIB=FORCE_ON"
           post_cmake: |
             # Link zlib statically. LLVM 10 has no option for this!
-            sed -i 's/ -lz / -l:libz.a /' "$CLANGD_DIR/build.ninja"
+            sed -i 's/ -lz / -l:libz.a /' "$$CLANGD_DIR/build.ninja"
     steps:
     - name: Clone scripts
       uses: actions/checkout@v2
@@ -147,9 +147,7 @@ jobs:
         asset_content_type: application/zip
     - name: Check binary compatibility
       if: matrix.config.name == 'linux'
-      run: >
-        .github/workflows/lib_compat_test.py
-        --lib=GLIBC_2.18
+      run: .github/workflows/lib_compat_test.py --lib=GLIBC_2.18
   # Create the release, and upload the artifacts to it.
   finalize:
     runs-on: ubuntu-latest
