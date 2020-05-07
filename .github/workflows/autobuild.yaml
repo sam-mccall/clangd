@@ -73,7 +73,7 @@ jobs:
             "-DLLVM_ENABLE_ZLIB=FORCE_ON"
           post_cmake: |
             # Link zlib statically. LLVM 10 has no option for this!
-            sed -i 's/ -lz / -l:libz.a /' "${{ env.CLANGD_DIR }}/build.ninja"
+            sed -i 's/ -lz / -l:libz.a /' "$CLANGD_DIR/build.ninja"
     steps:
     - name: Clone scripts
       uses: actions/checkout@v2
